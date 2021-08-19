@@ -1,0 +1,15 @@
+---
+- name: Stop play execution depending on yum return code
+  hosts: all
+  tasks:
+
+    - name: Run yum update
+      command: /usr/bin/yum -y update
+      ignore_errors: yes
+      async: 7200
+      poll: 60
+      register: result
+
+    - name: Reboot system if yum succeeds
+      reboot:
+      when: result.rc == 0
