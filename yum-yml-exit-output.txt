@@ -1,0 +1,24 @@
+
+Using /etc/ansible/ansible.cfg as config file
+SSH password: 
+
+PLAY [Stop play execution depending on yum return code] ************************
+18:05:34
+
+TASK [Gathering Facts] *********************************************************
+18:05:34
+
+ok: [vm.example.com]
+TASK [Run yum update] **********************************************************
+18:05:36
+
+fatal: [vm.example.com]: FAILED! => {"ansible_job_id": "628510071325.5356", "changed": true, "cmd": ["/root/yum_emulate.sh"], "delta": "0:00:10.004915", "end": "2021-08-19 18:05:47.297454", "finished": 1, "msg": "non-zero return code", "rc": 1, "start": "2021-08-19 18:05:37.292539", "stderr": "", "stderr_lines": [], "stdout": "Fake yum command with forced exit", "stdout_lines": ["Fake yum command with forced exit"]}
+...ignoring
+TASK [Reboot system if yum succeeds] *******************************************
+18:05:48
+
+skipping: [vm.example.com] => {"changed": false, "skip_reason": "Conditional result was False"}
+PLAY RECAP *********************************************************************
+18:05:48
+
+id.asm.network             : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=1   
