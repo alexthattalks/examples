@@ -1,7 +1,3 @@
-
-Using /etc/ansible/ansible.cfg as config file
-SSH password: 
-
 PLAY [Stop play execution depending on yum return code] ************************
 
 TASK [Gathering Facts] *********************************************************
