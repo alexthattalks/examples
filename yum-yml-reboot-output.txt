@@ -1,0 +1,19 @@
+PLAY [Stop play execution depending on yum return code] ************************
+18:14:02
+
+TASK [Gathering Facts] *********************************************************
+18:14:02
+ok: [vm.example.com]
+
+TASK [Run yum update] **********************************************************
+18:14:03
+changed: [vm.example.com] => {"ansible_job_id": "779605266835.5673", "changed": true, "cmd": ["/root/yum_emulate.sh"], "delta": "0:00:10.005057", "end": "2021-08-19 18:14:14.990461", "finished": 1, "rc": 0, "start": "2021-08-19 18:14:04.985404", "stderr": "", "stderr_lines": [], "stdout": "Fake yum success", "stdout_lines": ["Fake yum success"]}
+
+TASK [Reboot system if yum succeeds] *******************************************
+18:14:15
+changed: [vm.example.com] => {"changed": true, "elapsed": 27, "rebooted": true}
+
+PLAY RECAP *********************************************************************
+18:14:45
+
+vm.example.com             : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
