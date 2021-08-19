@@ -4,12 +4,8 @@ TASK [Gathering Facts] *********************************************************
 ok: [vm.example.com]
 
 TASK [Run yum update] **********************************************************
-fatal: [vm.example.com]: FAILED! => {"ansible_job_id": "628510071325.5356", "changed": true, "cmd": ["/root/yum_emulate.sh"], "delta": "0:00:10.004915", "end": "2021-08-19 18:05:47.297454", "finished": 1, "msg": "non-zero return code", "rc": 1, "start": "2021-08-19 18:05:37.292539", "stderr": "", "stderr_lines": [], "stdout": "Fake yum command with forced exit", "stdout_lines": ["Fake yum command with forced exit"]}
-...ignoring
-
-TASK [Reboot system if yum succeeds] *******************************************
-skipping: [vm.example.com] => {"changed": false, "skip_reason": "Conditional result was False"}
+fatal: [vm.example.com]: FAILED! => {"ansible_job_id": "659541631400.4558", "changed": true, "cmd": ["/root/yum_emulate.sh"], "delta": "0:00:18.004927", "end": "2021-08-19 17:55:04.379811", "finished": 1, "msg": "non-zero return code", "rc": 1, "start": "2021-08-19 17:54:46.374884", "stderr": "", "stderr_lines": [], "stdout": "Exit command test", "stdout_lines": ["Fake yum command with forced exit"]}
 
 PLAY RECAP *********************************************************************
 
-vm.example.com             : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=1   
+vm.example.com             : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0     
