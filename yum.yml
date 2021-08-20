@@ -4,12 +4,19 @@
   tasks:
 
     - name: Run yum update
-      command: /usr/bin/yum -y update
-      ignore_errors: yes
-      async: 7200
-      poll: 60
-      register: result
+      yum:
+        name: '*'
+        state: latest
+        exclude: kernel*,foo*
+        # Exclude any packages that cause exceptions to patching
+      async: 10
+      # After the time limit of 1hr (in seconds) runs out, the yum process on the remote nodes will be terminated.
+      poll: 2
+      # Checks the status of the yum run every 60 seconds
+      register: yum_result
+      # Captures the result of the yum command
 
     - name: Reboot system if yum succeeds
       reboot:
-      when: result.rc == 0
+      when: yum_result.rc == 0 and yum_result.msg != 'Nothing to do'
+      # Only reboot if yum command result exits with a "0" code, AND if yum command actually updates packages
