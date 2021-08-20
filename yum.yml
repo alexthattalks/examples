@@ -20,3 +20,9 @@
       reboot:
       when: yum_result.rc == 0 and yum_result.msg != 'Nothing to do'
       # Only reboot if yum command result exits with a "0" code, AND if yum command actually updates packages
+      
+# As written, this playbook will run the yum command for a maximum of 1hr, checking on the status every 60 seconds. All hosts will complete the yum
+# transaction before moving on to the reboot. This means that if (1) host holds up the rest, the maximum time it will take to reboot all of the hosts
+# is 1hr after the (1) host with the issue starts yum. After 1hr, that system's yum transaction will be aborted, it will NOT be rebooted, but the systems
+# that successfully installed packages will reboot. ****Please perform testing in your environment with known problem DEV OR TEST hosts FIRST, prior to using
+# this code against PROD hosts.****
