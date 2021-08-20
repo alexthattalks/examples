@@ -9,9 +9,9 @@
         state: latest
         exclude: kernel*,foo*
         # Exclude any packages that cause exceptions to patching
-      async: 10
+      async: 3600
       # After the time limit of 1hr (in seconds) runs out, the yum process on the remote nodes will be terminated.
-      poll: 2
+      poll: 60
       # Checks the status of the yum run every 60 seconds
       register: yum_result
       # Captures the result of the yum command
