@@ -1,0 +1,13 @@
+
+PLAY [Stop play execution depending on yum return code] ************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm.example.com]
+
+TASK [Run yum update] **********************************************************
+fatal: [vm.example.com]: FAILED! => {"changed": false, "msg": "async task did not complete within the requested time - 3600s"}
+
+PLAY RECAP *********************************************************************
+vm.example.com             : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+##### RESULT: FAILED task, skip reboot
