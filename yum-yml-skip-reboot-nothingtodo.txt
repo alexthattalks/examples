@@ -1,0 +1,13 @@
+PLAY [Stop play execution depending on yum return code] ************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm.example.com]
+
+TASK [Run yum update] **********************************************************
+ok: [vm.example.com] => {"ansible_job_id": "57348078887.5380", "changed": false, "finished": 1, "msg": "Nothing to do", "rc": 0, "results": []}
+
+TASK [Reboot system if yum succeeds] *******************************************
+skipping: [vm.example.com] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+PLAY RECAP *********************************************************************
+vm.example.com             : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
