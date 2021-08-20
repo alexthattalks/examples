@@ -11,3 +11,5 @@ skipping: [vm.example.com] => {"changed": false, "skip_reason": "Conditional res
 
 PLAY RECAP *********************************************************************
 vm.example.com             : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+##### RESULT: SUCCEED task, skip reboot
