@@ -1,0 +1,15 @@
+PLAY [Stop play execution depending on yum return code] ************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm.example.com]
+
+TASK [Run yum update] **********************************************************
+changed: [vm.example.com] => {"ansible_job_id": "56218316335.19400", "changed": true, "finished": 1, "msg": "", "rc": 0, "results": ["Installed: tcpdump-14:4.9.3-1.el8.x86_64", "Removed: tcpdump-14:4.9.2-5.el8.x86_64"]}
+
+TASK [Reboot system if yum succeeds] *******************************************
+changed: [vm.example.com] => {"changed": true, "elapsed": 27, "rebooted": true}
+
+PLAY RECAP *********************************************************************
+vm.example.com             : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+##### RESULT: SUCCEED task, do reboot
