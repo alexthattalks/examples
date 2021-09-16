@@ -1,5 +1,7 @@
 Setup instructions:
 
+****DOWNLOAD ALL 3 FILES - publish.yml, cvs.yml, and composite_cvs.yml, and place all in same directory on Git
+
 1. Create "collections" directory in the top level of your Git repo for the project containing the content view playbooks
 
 2. Create a "requirements.yml" file inside the "collections" directory, containing the following:
