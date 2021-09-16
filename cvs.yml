@@ -1,0 +1,29 @@
+- name: Fetch info about {{ content_view }}
+  # Utilizes satellite collection from Automation Hub to gather CV info
+  redhat.satellite.content_view_info:
+    name: "{{ content_view }}"
+  # Registers the output to a variable
+  register: cv_result
+
+- name: Set cv_version variable
+  set_fact:
+    # Sets variable for the version the content view will go to upon publish
+    cv_version: "{{ cv_result.content_view.next_version }}"
+
+- name: Set cv_errors variable
+  set_fact:
+    # Sets variable for any errors with the current published version
+    cv_errors: "{{ cv_result.content_view.errors }}"
+
+- name: Publish & Promote content view {{ content_view }}
+  # Utilizes satellite collection from Automation Hub to set desired state of the CV
+  redhat.satellite.content_view_version:
+    content_view: "{{ content_view }}"
+    version: "{{ cv_version }}"
+    organization: "{{ org_name }}"
+    description: "{{ description_field }}"
+    # Publishes and promotes component content views to Library only
+    lifecycle_environments:
+      - Library
+  # Only runs when the errors variable is null (no errors)
+  when: cv_errors|length == 0
