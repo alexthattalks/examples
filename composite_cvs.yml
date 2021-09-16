@@ -1,0 +1,31 @@
+- name: Fetch info about {{ composite_content_view }}
+  # Utilizes satellite collection from Automation Hub to gather CCV info
+  redhat.satellite.content_view_info:
+    name: "{{ composite_content_view }}"
+  # Registers the output to a variable
+  register: ccv_result
+
+- name: Set ccv_version variable
+  set_fact:
+    # Sets variable for the version the content view will go to upon publish
+    ccv_version: "{{ ccv_result.content_view.next_version }}"
+
+- name: Set ccv_errors variable
+  set_fact:
+    # Sets variable for any errors with the current published version
+    ccv_errors: "{{ ccv_result.content_view.errors }}"
+
+- name: Publish & Promote content view {{ composite_content_view }}
+  # Utilizes satellite collection from Automation Hub to set desired state of the CCV
+  redhat.satellite.content_view_version:
+    content_view: "{{ composite_content_view }}"
+    version: "{{ ccv_version }}"
+    organization: "{{ org_name }}"
+    description: "{{ description_field }}"
+    # Publishes and promotes component content views to other lifecycle environments [CHANGE THESE TO YOUR OWN]
+    lifecycle_environments:
+      - Library
+      - test
+      - prod
+  # Only runs when the errors variable is null (no errors)
+  when: ccv_errors|length == 0
