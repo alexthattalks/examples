@@ -1,0 +1,36 @@
+---
+- name: Publish Content Views Loop
+  hosts: all
+  # Store Satellite Credentials in an Ansible Vault Secret
+  vars_files:
+    - sat_login_secret.yml
+  # Setup environment variables for the run of the play
+  environment:
+    SATELLITE_SERVER_URL: "{{ sat_url }}"
+    SATELLITE_USERNAME: "{{ secret.sat_user }}"
+    SATELLITE_PASSWORD: "{{ secret.sat_pass }}"
+    
+  tasks:
+    # Runs through content views FIRST, then composite content views SECOND
+
+    # Sends play to tasks in cvs.yml, loops through each content view and publishes/promotes to Library only
+    - name: Loop through Content Views and Publish
+      include_tasks: cvs.yml
+      # Splits input list of CVs to loop through
+      loop: "{{ content_views.split('\n') }}"
+      loop_control:
+        # Sets variable for use inside the loop, in cvs.yml
+        loop_var: content_view
+      # Only runs if Content Views are defined in the survey
+      when: content_views|length != 0
+    
+    # Sends play to tasks in composite_cvs.yml, loops through each composite content view and publishes/promotes to specified environment
+    - name: Loop through Composite Content Views and Publish
+      include_tasks: composite_cvs.yml
+      # Splits input list of CVs to loop through
+      loop: "{{ composite_content_views.split('\n') }}"
+      loop_control:
+        # Sets variable for use inside the loop, in composite_cvs.yml
+        loop_var: composite_content_view
+      # Only runs if Composite Content Views are defined in the survey
+      when: composite_content_views|length != 0
