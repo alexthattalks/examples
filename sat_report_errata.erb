@@ -1,0 +1,22 @@
+<%#
+name: Errata Counts
+snippet: false
+model: ReportTemplate
+require:
+- plugin: katello
+  version: 3.14.0
+-%>
+
+<%- load_hosts(includes: [:lifecycle_environment, :operatingsystem, :architecture, :content_view, :organization, :reported_data, :applicable_errata]).each_record do |host| -%>
+    <%- report_row(
+          'Name': host.name,
+          'Organization': host.organization,
+          'Lifecycle Environment': host.lifecycle_environment,
+          'Content View': host.content_view,
+          'Host Collections': host.host_collections,
+          'Virtual': host.virtual,
+          'Guest of Host': host.hypervisor_host,
+          'Errata count': host.applicable_errata.size
+          ) -%>
+ <%- end -%>
+<%= report_render -%>
