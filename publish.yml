@@ -13,16 +13,18 @@
   tasks:
     # Runs through content views FIRST, then composite content views SECOND
 
+### UPDATE 1 #######################################################
     # Sends play to tasks in filters.yml, loops through primary RHEL content views and applies filters
     - name: Loop through and Create/Update Filters
       include_tasks: filters.yml
       # Splits input list of CVs to loop through
-      loop: "{{ primary_content_views.split('\n') }}"
+      loop: "{{ primary_content_view }}"
       loop_control:
         # Sets variable for use inside the loop, in filters.yml
         loop_var: content_view
       # Only runs if Content Views are defined in the survey
-      when: primary_content_views|length != 0
+      when: primary_content_view|length != 0
+### UPDATE 1 #######################################################
 
     # Sends play to tasks in cvs.yml, loops through each content view and publishes/promotes to Library only
     - name: Loop through Content Views and Publish
