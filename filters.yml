@@ -17,6 +17,15 @@
     original_packages: "yes"
     inclusion: "yes"
     
+- name: Update Include Modules without Errata
+  redhat.satellite.content_view_filter:
+    name: "MOD WITHOUT ERRATA"
+    organization: "{{ org_name }}"
+    content_view: "{{ content_view }}"
+    filter_type: "module"
+    original_packages: "yes"
+    inclusion: "yes"
+    
 - name: Update Include Specific Erratum
   redhat.satellite.content_view_filter:
     name: "SPECIFIC ERRATA {{ item }}"
@@ -26,7 +35,4 @@
     errata_id: "{{ item }}"
     inclusion: "yes"
   loop: "{{ errata_id.split('\n') }}"
-
-
-
-
+  when: errata_id|length != 0
