@@ -1,10 +1,32 @@
-- name: Exclude csh
+- name: Update Include Erratum To Date Filter
   redhat.satellite.content_view_filter:
-    username: "admin"
-    password: "changeme"
-    server_url: "https://satellite.example.com"
-    name: "package filter 1"
-    organization: "Default Organization"
-    content_view: Web Servers
+    name: "INCLUDE TO {{ end_date }}"
+    organization: "{{ org_name }}"
+    content_view: "{{ content_view }}"
+    filter_type: "erratum"
+    end_date: "{{ end_date }}"
+    date_type: "updated"
+    inclusion: "yes"
+    
+- name: Update Include Packages without Errata
+  redhat.satellite.content_view_filter:
+    name: "RPM WITHOUT ERRATA"
+    organization: "{{ org_name }}"
+    content_view: "{{ content_view }}"
     filter_type: "rpm"
-    package_name: tcsh
+    original_packages: "yes"
+    inclusion: "yes"
+    
+- name: Update Include Specific Erratum
+  redhat.satellite.content_view_filter:
+    name: "SPECIFIC ERRATA {{ item }}"
+    organization: "{{ org_name }}"
+    content_view: "{{ content_view }}"
+    filter_type: "erratum"
+    errata_id: "{{ item }}"
+    inclusion: "yes"
+  loop: "{{ errata_id }}"
+
+
+
+
