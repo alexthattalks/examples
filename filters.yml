@@ -25,7 +25,7 @@
     filter_type: "erratum"
     errata_id: "{{ item }}"
     inclusion: "yes"
-  loop: "{{ errata_id }}"
+  loop: "{{ errata_id.split('\n') }}"
 
 
 
