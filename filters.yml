@@ -2,7 +2,7 @@
   redhat.satellite.content_view_filter:
     name: "INCLUDE TO {{ end_date }}"
     organization: "{{ org_name }}"
-    content_view: "{{ content_view }}"
+    content_view: "{{ primary_content_view }}"
     filter_type: "erratum"
     end_date: "{{ end_date }}"
     date_type: "updated"
@@ -12,7 +12,7 @@
   redhat.satellite.content_view_filter:
     name: "RPM WITHOUT ERRATA"
     organization: "{{ org_name }}"
-    content_view: "{{ content_view }}"
+    content_view: "{{ primary_content_view }}"
     filter_type: "rpm"
     original_packages: "yes"
     inclusion: "yes"
@@ -21,7 +21,7 @@
   redhat.satellite.content_view_filter:
     name: "MOD WITHOUT ERRATA"
     organization: "{{ org_name }}"
-    content_view: "{{ content_view }}"
+    content_view: "{{ primary_content_view }}"
     filter_type: "module"
     original_packages: "yes"
     inclusion: "yes"
@@ -30,7 +30,7 @@
   redhat.satellite.content_view_filter:
     name: "SPECIFIC ERRATA {{ item }}"
     organization: "{{ org_name }}"
-    content_view: "{{ content_view }}"
+    content_view: "{{ primary_content_view }}"
     filter_type: "erratum"
     errata_id: "{{ item }}"
     inclusion: "yes"
