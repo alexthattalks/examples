@@ -28,7 +28,7 @@
     
 - name: Update Include Specific Erratum
   redhat.satellite.content_view_filter:
-    name: "SPECIFIC ERRATA {{ item }}"
+    name: "SPECIFIC ERRATA"
     organization: "{{ org_name }}"
     content_view: "{{ primary_content_view }}"
     filter_type: "erratum"
