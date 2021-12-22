@@ -1,6 +1,6 @@
 - name: Update Include Erratum To Date Filter
   redhat.satellite.content_view_filter:
-    name: "INCLUDE TO {{ end_date }}"
+    name: "INCLUDE TO DATE"
     organization: "{{ org_name }}"
     content_view: "{{ primary_content_view }}"
     filter_type: "erratum"
@@ -15,15 +15,7 @@
     content_view: "{{ primary_content_view }}"
     filter_type: "rpm"
     original_packages: "yes"
-    inclusion: "yes"
-    
-- name: Update Include Modules without Errata
-  redhat.satellite.content_view_filter:
-    name: "MOD WITHOUT ERRATA"
-    organization: "{{ org_name }}"
-    content_view: "{{ primary_content_view }}"
-    filter_type: "module"
-    original_packages: "yes"
+    rule_state: "absent"
     inclusion: "yes"
     
 - name: Update Include Specific Erratum
@@ -32,7 +24,6 @@
     organization: "{{ org_name }}"
     content_view: "{{ primary_content_view }}"
     filter_type: "erratum"
-    errata_id: "{{ item }}"
+    errata_id: "{{ errata_id }}"
     inclusion: "yes"
-  loop: "{{ errata_id.split('\n') }}"
   when: errata_id|length != 0
