@@ -61,11 +61,17 @@ to create filters to lock content in place to a certain date, publish, and promo
  
  Now you can run this Workflow each month by launching it, entering the required date, and running the workflow.
  
-# UPDATE 2: Using Job Template for Errata
+# UPDATE 2: Using Job Template for Out of Band Errata
 
 1. Use the Workflow from Update 1 for monthly patching publish and promotes.
 
-2. If you need to add a specific RHSA to content views after the monthly patching, launch the Job Template directly, and fill out the survey for each version of RHEL. 
+2. If you need to add a specific RHSA to content views after the monthly patching, launch the Job Template directly, and fill out the survey for RHEL 7, entering ONLY end date, primary content view, and errata ID. This will create the filter.
+
+3. If you have more than errata ID to add, manually modify the filter in the Satellite UI
+
+4. Once you have the filters setup correctly, run the Job Template using the All Content Views and Composite Content View fields to publish and promote your CV and CCVs with the new errata. 
+
+5. Evaluate CV and CCVs after publish to ensure everything looks correct.
 
 
 # MAIN SETUP INSTRUCTIONS:
