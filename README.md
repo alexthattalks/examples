@@ -1,4 +1,4 @@
-# UPDATE: Setup Workflow for Recurring Monthly Patching
+# UPDATE 1: Setup Workflow for Recurring Monthly Patching
 
 This update allows you to setup a workflow that runs the Patching Job Template two times (or more), for each version of RHEL
 to create filters to lock content in place to a certain date, publish, and promote the content and composite content views.
@@ -10,41 +10,41 @@ to create filters to lock content in place to a certain date, publish, and promo
 
 3. NAME: Publish & Promote Monthly
    ```
-   ORGANIZATION: {YOUR ORG}
-   INVENTORY: use the same as below, ensure you are only including the Satellite host
-   Click SAVE
+   - ORGANIZATION: {YOUR ORG}
+   - INVENTORY: use the same as below, ensure you are only including the Satellite host
+   - Click SAVE
    ```
 4. Go into Workflow Visualizer
 
 5. Create a node downstream from START
    ```
-   DROPDOWN: Template
-   Select Job Template created in below steps
-   CONVERGENCE: All
-   Click PROMPT
+   - DROPDOWN: Template
+   - Select Job Template created in below steps
+   - CONVERGENCE: All
+   - Click PROMPT
    ```
 6. Fill out Survey for RHEL 7
    ```
-   Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
-   PRIMARY CONTENT VIEW: {Main RHEL 7 CV}
-   ALL CONTENT VIEWS: {All RHEL 7 CVs including Main)
-   COMPOSITE CONTENT VIEW: {RHEL 7 CCV}
-   Click NEXT, Then CONFIRM, Then SELECT
+   - Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
+   - PRIMARY CONTENT VIEW: {Main RHEL 7 CV}
+   - ALL CONTENT VIEWS: {All RHEL 7 CVs including Main)
+   - COMPOSITE CONTENT VIEW: {RHEL 7 CCV}
+   - Click NEXT, Then CONFIRM, Then SELECT
    ```
 7. Create a node downstream from RHEL 7
    ```
-   DROPDOWN: Template
-   Select Job Template created in below steps
-   CONVERGENCE: All
-   Click PROMPT
+   - DROPDOWN: Template
+   - Select Job Template created in below steps
+   - CONVERGENCE: All
+   - Click PROMPT
    ```
 8. Fill out Survey for RHEL 8
    ```
-   Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
-   PRIMARY CONTENT VIEW: {Main RHEL 8 CV}
-   ALL CONTENT VIEWS: {All RHEL 8 CVs including Main)
-   COMPOSITE CONTENT VIEW: {RHEL 8 CCV}
-   Click NEXT, Then CONFIRM, Then SELECT, Then SAVE Workflow
+   - Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
+   - PRIMARY CONTENT VIEW: {Main RHEL 8 CV}
+   - ALL CONTENT VIEWS: {All RHEL 8 CVs including Main)
+   - COMPOSITE CONTENT VIEW: {RHEL 8 CCV}
+   - Click NEXT, Then CONFIRM, Then SELECT, Then SAVE Workflow
    ```
 9. Click EDIT SURVEY for Workflow
    ```
@@ -116,56 +116,65 @@ This enables Ansible Tower to automatically fetch needed collections/modules/rol
 
 8. You must create the following survey to work properly:
     1st FIELD (SATELLITE URL)
+    ```
     a. PROMPT: Satellite URL
     b. ANSWER VARIABLE NAME: sat_url
     c. ANSWER TYPE: text
     d. DEFAULT ANSWER: http://yoursatellite.example.com
     e. REQUIRED: true
-
+    ```
     2nd FIELD (ORGANIZATION)
+    ```
     a. PROMPT: Organization
     b. ANSWER VARIABLE NAME: org_name
     c. ANSWER TYPE: text
     d. DEFAULT ANSWER: YOUR ORGANIZATION
     e. REQUIRED: true
-
+    ```
     3rd FIELD (DESCRIPTION)
+    ```
     a. PROMPT: Description
     b. ANSWER VARIABLE NAME: description
     c. ANSWER TYPE: text
     d. DEFAULT ANSWER: ENTER MONTH Patch Set
     e. REQUIRED: true
-    
+    ```
     4th FIELD (ERRATUM END DATE)
+    ```
     a. PROMPT: Erratum End Date
     b. DESCRIPTION: YYYY-MM-DD
     c. ANSWER VARIABLE NAME: end_date
     d. ANSWER TYPE: text
     e. MIN & MAX LENGTH: 10
     f. REQUIRED: false
-    
+    ```
     5th FIELD (ERRATA ID)
+    ```
     a. PROMPT: Erratum End Date
     b. DESCRIPTION: RHSA:2021-XXXXX
     c. ANSWER VARIABLE NAME: errata_id
     d. ANSWER TYPE: text
     e. REQUIRED: false
-    
+    ```
     6th FIELD (PRIMARY CONTENT VIEW)
+    ```
     a. PROMPT: Primary Content View
     b. ANSWER VARIABLE NAME: primary_content_view
     c. ANSWER TYPE: text
     d. REQUIRED: false
-
+    ```
     7th FIELD (ALL CONTENT VIEWS)
+    ```
     a. PROMPT: All Content Views
     b. DESCRIPTION: (Including Primary Content View)
     c. ANSWER VARIABLE NAME: content_views
     d. ANSWER TYPE: textarea
     e. REQUIRED: false
-
+    ```
     8th FIELD (COMPOSITE CONTENT VIEW)
+    ```
     a. PROMPT: Composite Content View
     b. ANSWER VARIABLE NAME: composite_content_views
     c. ANSWER TYPE: text
     d. REQUIRED: false
+    ```
