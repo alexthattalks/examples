@@ -71,11 +71,12 @@ to create filters to lock content in place to a certain date, publish, and promo
 1. Create "collections" directory in the top level of your Git repo for the project containing the content view playbooks
 
 2. Create a "requirements.yml" file inside the "collections" directory, containing the following:
-
+```
 ---
 collections:
   - name: redhat.satellite
     source: https://console.redhat.com/api/automation-hub/
+```    
 
 This enables Ansible Tower to automatically fetch needed collections/modules/roles from Automation hub
 
@@ -90,6 +91,7 @@ This enables Ansible Tower to automatically fetch needed collections/modules/rol
 ####
 
 4. Create secrets file with Satellite username and password
+    ```
     a. Create a sat_login_secret.yml file alongside your playbooks
     b. Inside the file, place the following:
 
@@ -104,12 +106,13 @@ This enables Ansible Tower to automatically fetch needed collections/modules/rol
     New Vault password:
     Confirm New Vault password:
     Encryption successful
-
+    ```
 5. Using the password you just set, create a Vault credential in Ansible Tower
+    ```
     a. Go to Credentials > Green "+"
     b. Enter the name, password you just set, a description, and the organization
     c. Click Save
-
+    ```
 6. When setting up the template, ensure BOTH the machine credential AND the Vault credential you just created are both selected in the Credentials field
 
 7. When selecting an inventory, ensure you are only including the Satellite host
