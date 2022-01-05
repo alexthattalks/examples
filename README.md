@@ -31,7 +31,7 @@ to create filters to lock content in place to a certain date, publish, and promo
    - COMPOSITE CONTENT VIEW: {RHEL 7 CCV}
    - Click NEXT, Then CONFIRM, Then SELECT
    ```
-7. Create a node downstream from RHEL 7
+7. Create a node downstream from RHEL 7 for RHEL 8
    ```
    - DROPDOWN: Template
    - Select Job Template created in below steps
@@ -61,6 +61,12 @@ to create filters to lock content in place to a certain date, publish, and promo
  
  Now you can run this Workflow each month by launching it, entering the required date, and running the workflow.
  
+# UPDATE 2: Using Job Template for Errata
+
+1. Use the Workflow from Update 1 for monthly patching publish and promotes.
+
+2. If you need to add a specific RHSA to content views after the monthly patching, launch the Job Template directly, and fill out the survey for each version of RHEL. 
+
 
 # MAIN SETUP INSTRUCTIONS:
 
