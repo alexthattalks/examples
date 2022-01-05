@@ -1,4 +1,4 @@
-#UPDATE: Setup Workflow for Recurring Monthly Patching
+# UPDATE: Setup Workflow for Recurring Monthly Patching
 
 This update allows you to setup a workflow that runs the Patching Job Template two times (or more), for each version of RHEL
 to create filters to lock content in place to a certain date, publish, and promote the content and composite content views.
@@ -56,7 +56,7 @@ to create filters to lock content in place to a certain date, publish, and promo
  Now you can run this Workflow each month by launching it, entering the required date, and running the workflow.
  
 
-#MAIN SETUP INSTRUCTIONS:
+# MAIN SETUP INSTRUCTIONS:
 
 ****DOWNLOAD ALL 4 FILES - publish.yml, filters.yml, cvs.yml, and composite_cvs.yml, and place all in same directory on Git
 
