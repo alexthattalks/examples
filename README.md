@@ -9,17 +9,17 @@ to create filters to lock content in place to a certain date, publish, and promo
 2. Once the Job Template is created, go to Templates > + (Workflow Template)
 
 3. NAME: Publish & Promote Monthly
-   ORGANIZATION: {YOUR ORG}
-   INVENTORY: use the same as below, ensure you are only including the Satellite host
-   Click SAVE
+   -ORGANIZATION: {YOUR ORG}
+   -INVENTORY: use the same as below, ensure you are only including the Satellite host
+   -Click SAVE
    
 4. Go into Workflow Visualizer
 
 5. Create a node downstream from START
-   DROPDOWN: Template
-   Select Job Template created in below steps
-   CONVERGENCE: All
-   Click PROMPT
+   -DROPDOWN: Template
+   -Select Job Template created in below steps
+   -CONVERGENCE: All
+   -Click PROMPT
    
 6. Fill out Survey for RHEL 7
    Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
