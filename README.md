@@ -64,9 +64,9 @@ to create filters to lock content in place to a certain date, publish, and promo
 
 # MAIN SETUP INSTRUCTIONS:
 
-****DOWNLOAD ALL 4 FILES - publish.yml, filters.yml, cvs.yml, and composite_cvs.yml, and place all in same directory on Git
+## DOWNLOAD ALL 4 FILES - publish.yml, filters.yml, cvs.yml, and composite_cvs.yml, and place all in same directory on Git
 
-***IF USING AUTO-DOWNLOADED COLLECTIONS
+**IF USING AUTO-DOWNLOADED COLLECTIONS**
 
 1. Create "collections" directory in the top level of your Git repo for the project containing the content view playbooks
 
@@ -83,12 +83,19 @@ This enables Ansible Tower to automatically fetch needed collections/modules/rol
 3. Ensure Automation Hub is setup as your Galaxy source in Ansible Tower
 
 
-***IF USING COLLECTIONS PART OF GIT/SCM
+**IF USING COLLECTIONS PART OF GIT/SCM**
 
-####
-#### WRITE IN HERE
-#### WRITE IN HERE
-####
+1. Create the following directory structure in the top level of your Git repo for the project containing the content view playbooks
+
+```
+ collections/ansible_collections/redhat/satellite
+```
+
+2. Download Collection from Source to local computer and expand from tarball
+
+3. Upload Collection to git server, into the directory created in step 1
+
+--------------------
 
 4. Create secrets file with Satellite username and password
     ```
@@ -118,6 +125,7 @@ This enables Ansible Tower to automatically fetch needed collections/modules/rol
 7. When selecting an inventory, ensure you are only including the Satellite host
 
 8. You must create the following survey to work properly:
+    
     1st FIELD (SATELLITE URL)
     ```
     a. PROMPT: Satellite URL
