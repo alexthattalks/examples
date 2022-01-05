@@ -1,6 +1,66 @@
-Setup instructions:
+#UPDATE: Setup Workflow for Recurring Monthly Patching
 
-****DOWNLOAD ALL 3 FILES - publish.yml, cvs.yml, and composite_cvs.yml, and place all in same directory on Git
+This update allows you to setup a workflow that runs the Patching Job Template two times (or more), for each version of RHEL
+to create filters to lock content in place to a certain date, publish, and promote the content and composite content views.
+
+
+1. Complete installation steps in "Setup Instructions", creating your publish and promotoe Job Template
+
+2. Once the Job Template is created, go to Templates > + (Workflow Template)
+
+3. NAME: Publish & Promote Monthly
+   ORGANIZATION: {YOUR ORG}
+   INVENTORY: use the same as below, ensure you are only including the Satellite host
+   Click SAVE
+   
+4. Go into Workflow Visualizer
+
+5. Create a node downstream from START
+   DROPDOWN: Template
+   Select Job Template created in below steps
+   CONVERGENCE: All
+   Click PROMPT
+   
+6. Fill out Survey for RHEL 7
+   Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
+   PRIMARY CONTENT VIEW: {Main RHEL 7 CV}
+   ALL CONTENT VIEWS: {All RHEL 7 CVs including Main)
+   COMPOSITE CONTENT VIEW: {RHEL 7 CCV}
+   Click NEXT, Then CONFIRM, Then SELECT
+ 
+7. Create a node downstream from RHEL 7
+   DROPDOWN: Template
+   Select Job Template created in below steps
+   CONVERGENCE: All
+   Click PROMPT
+   
+8. Fill out Survey for RHEL 8
+   Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
+   PRIMARY CONTENT VIEW: {Main RHEL 8 CV}
+   ALL CONTENT VIEWS: {All RHEL 8 CVs including Main)
+   COMPOSITE CONTENT VIEW: {RHEL 8 CCV}
+   Click NEXT, Then CONFIRM, Then SELECT, Then SAVE Workflow
+   
+9. Click EDIT SURVEY for Workflow
+   Only FIELD (END DATE)
+    a. PROMPT: END DATE
+    b. DESCRIPTION: YYYY-MM-DD
+    c. ANSWER VARIABLE NAME: end_date
+    d. ANSWER TYPE: text
+    e. MIN & MAX: 10
+    f. REQUIRED: true
+   Click SAVE
+   
+ 10. SAVE Workflow
+ 
+ Now you can run this Workflow each month by launching it, entering the required date, and running the workflow.
+ 
+
+#MAIN SETUP INSTRUCTIONS:
+
+****DOWNLOAD ALL 4 FILES - publish.yml, filters.yml, cvs.yml, and composite_cvs.yml, and place all in same directory on Git
+
+***IF USING AUTO-DOWNLOADED COLLECTIONS
 
 1. Create "collections" directory in the top level of your Git repo for the project containing the content view playbooks
 
@@ -14,6 +74,14 @@ collections:
 This enables Ansible Tower to automatically fetch needed collections/modules/roles from Automation hub
 
 3. Ensure Automation Hub is setup as your Galaxy source in Ansible Tower
+
+
+***IF USING COLLECTIONS PART OF GIT/SCM
+
+####
+#### WRITE IN HERE
+#### WRITE IN HERE
+####
 
 4. Create secrets file with Satellite username and password
     a. Create a sat_login_secret.yml file alongside your playbooks
@@ -41,37 +109,57 @@ This enables Ansible Tower to automatically fetch needed collections/modules/rol
 7. When selecting an inventory, ensure you are only including the Satellite host
 
 8. You must create the following survey to work properly:
-    FIRST FIELD (SATELLITE URL)
+    1st FIELD (SATELLITE URL)
     a. PROMPT: Satellite URL
     b. ANSWER VARIABLE NAME: sat_url
     c. ANSWER TYPE: text
     d. DEFAULT ANSWER: http://yoursatellite.example.com
     e. REQUIRED: true
 
-    SECOND FIELD (ORGANIZATION)
+    2nd FIELD (ORGANIZATION)
     a. PROMPT: Organization
     b. ANSWER VARIABLE NAME: org_name
     c. ANSWER TYPE: text
     d. DEFAULT ANSWER: YOUR ORGANIZATION
     e. REQUIRED: true
 
-    THIRD FIELD (DESCRIPTION)
+    3rd FIELD (DESCRIPTION)
     a. PROMPT: Description
     b. ANSWER VARIABLE NAME: description
     c. ANSWER TYPE: text
     d. DEFAULT ANSWER: ENTER MONTH Patch Set
     e. REQUIRED: true
+    
+    4th FIELD (ERRATUM END DATE)
+    a. PROMPT: Erratum End Date
+    b. DESCRIPTION: YYYY-MM-DD
+    c. ANSWER VARIABLE NAME: end_date
+    d. ANSWER TYPE: text
+    e. MIN & MAX LENGTH: 10
+    f. REQUIRED: false
+    
+    5th FIELD (ERRATA ID)
+    a. PROMPT: Erratum End Date
+    b. DESCRIPTION: RHSA:2021-XXXXX
+    c. ANSWER VARIABLE NAME: errata_id
+    d. ANSWER TYPE: text
+    e. REQUIRED: false
+    
+    6th FIELD (PRIMARY CONTENT VIEW)
+    a. PROMPT: Primary Content View
+    b. ANSWER VARIABLE NAME: primary_content_view
+    c. ANSWER TYPE: text
+    d. REQUIRED: false
 
-    FOURTH FIELD (CONTENT VIEWS)
-    a. PROMPT: Content Views
-    b. ANSWER VARIABLE NAME: content_views
-    c. ANSWER TYPE: textarea
-    d. DEFAULT ANSWER: YOUR STANDARD CVs LISTED WITH NEW LINES
+    7th FIELD (ALL CONTENT VIEWS)
+    a. PROMPT: All Content Views
+    b. DESCRIPTION: (Including Primary Content View)
+    c. ANSWER VARIABLE NAME: content_views
+    d. ANSWER TYPE: textarea
     e. REQUIRED: false
 
-    FIFTH FIELD (COMPOSITE CONTENT VIEWS)
-    a. PROMPT: Composite Content Views
+    8th FIELD (COMPOSITE CONTENT VIEW)
+    a. PROMPT: Composite Content View
     b. ANSWER VARIABLE NAME: composite_content_views
-    c. ANSWER TYPE: textarea
-    d. DEFAULT ANSWER: YOUR STANDARD CCVs LISTED WITH NEW LINES
-    e. REQUIRED: false
+    c. ANSWER TYPE: text
+    d. REQUIRED: false
