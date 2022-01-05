@@ -21,7 +21,7 @@
     content_view: "{{ content_view }}"
     version: "{{ cv_version }}"
     organization: "{{ org_name }}"
-    description: "{{ description_field }}"
+    description: "{{ end_date }}"
     # Publishes and promotes component content views to Library only
     lifecycle_environments:
       - Library
