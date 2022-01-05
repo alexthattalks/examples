@@ -9,39 +9,45 @@ to create filters to lock content in place to a certain date, publish, and promo
 2. Once the Job Template is created, go to Templates > + (Workflow Template)
 
 3. NAME: Publish & Promote Monthly
-   -ORGANIZATION: {YOUR ORG}
-   -INVENTORY: use the same as below, ensure you are only including the Satellite host
-   -Click SAVE
-   
+   ```
+   ORGANIZATION: {YOUR ORG}
+   INVENTORY: use the same as below, ensure you are only including the Satellite host
+   Click SAVE
+   ```
 4. Go into Workflow Visualizer
 
 5. Create a node downstream from START
-   -DROPDOWN: Template
-   -Select Job Template created in below steps
-   -CONVERGENCE: All
-   -Click PROMPT
-   
+   ```
+   DROPDOWN: Template
+   Select Job Template created in below steps
+   CONVERGENCE: All
+   Click PROMPT
+   ```
 6. Fill out Survey for RHEL 7
+   ```
    Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
    PRIMARY CONTENT VIEW: {Main RHEL 7 CV}
    ALL CONTENT VIEWS: {All RHEL 7 CVs including Main)
    COMPOSITE CONTENT VIEW: {RHEL 7 CCV}
    Click NEXT, Then CONFIRM, Then SELECT
- 
+   ```
 7. Create a node downstream from RHEL 7
+   ```
    DROPDOWN: Template
    Select Job Template created in below steps
    CONVERGENCE: All
    Click PROMPT
-   
+   ```
 8. Fill out Survey for RHEL 8
+   ```
    Leave ERRATUM END DATE BLANK (will be filled by Workflow survey
    PRIMARY CONTENT VIEW: {Main RHEL 8 CV}
    ALL CONTENT VIEWS: {All RHEL 8 CVs including Main)
    COMPOSITE CONTENT VIEW: {RHEL 8 CCV}
    Click NEXT, Then CONFIRM, Then SELECT, Then SAVE Workflow
-   
+   ```
 9. Click EDIT SURVEY for Workflow
+   ```
    Only FIELD (END DATE)
     a. PROMPT: END DATE
     b. DESCRIPTION: YYYY-MM-DD
@@ -50,7 +56,7 @@ to create filters to lock content in place to a certain date, publish, and promo
     e. MIN & MAX: 10
     f. REQUIRED: true
    Click SAVE
-   
+   ```
  10. SAVE Workflow
  
  Now you can run this Workflow each month by launching it, entering the required date, and running the workflow.
