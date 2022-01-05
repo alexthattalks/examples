@@ -21,7 +21,7 @@
     content_view: "{{ composite_content_view }}"
     version: "{{ ccv_version }}"
     organization: "{{ org_name }}"
-    description: "{{ description_field }}"
+    description: "{{ end_date }}"
     # Publishes and promotes component content views to other lifecycle environments [CHANGE THESE TO YOUR OWN]
     lifecycle_environments:
       - Library
