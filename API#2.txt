@@ -1,0 +1,64 @@
+-------------------------------------------------------
+EXAMPLE API CALL FOR A SPECIFIC SYSTEM
+-------------------------------------------------------
+
+                      MAIN API ENDPOINT                         ID OF SPECIFIC HOST          CALL FOR ERRATA
+| --------------------------------------------------- | ---------------------------------- | ----------- |
+
+https://console.redhat.com/api/patch/v1/export/systems/25a54baf-2209-4cc7-a74f-ab6059ded281/advisories
+
+
+-------------------------------------------------------
+EXAMPLE RETURN FOR A SPECIFIC SYSTEM 
+-------------------------------------------------------
+
+### Returns long list of errata. This could be parsed to display as a table, so when a host is clicked on the dashboard, this API call runs, and displays the table of applicable errata, only if the user wants to drill down and see more data. Run live and on-the-fly.
+
+[
+  {
+    "id": "RHBA-2019:0991",     <================ This can be used to execute API#3, to fetch info on the specific errata's affected packages, CVEs, etc
+
+    "description": "The System Security Services Daemon (SSSD) service provides a set of daemons to manage access to remote directories and authentication mechanisms. It also provides the Name Service Switch (NSS) and the Pluggable Authentication Modules (PAM) interfaces toward the system, and a pluggable back-end system to connect to multiple different account sources.\n\nThis update fixes the following bugs:\n\n* pam_sss failing for external users not configured via sssd - rhel 8.0.0 (BZ#1691750)\n\n* AD user not found after establishing trust and restarting sssd (BZ#1696596)\n\n* Include libsss_nss_idmap-devel in the Builder repository (BZ#1701135)\n\nUsers of sssd are advised to upgrade to these updated packages, which fix these bugs.",
+    "public_date": "2019-05-07T03:41:14Z",
+    "synopsis": "sssd bug fix update",
+    "advisory_type": 2,
+    "advisory_type_name": "bugfix",
+    "cve_count": 0,
+    "reboot_required": false,
+    "release_versions": [
+      "8",
+      "8.5",
+      "8.2",
+      "8.0",
+      "8.3",
+      "8.1",
+      "8.4"
+    ]
+  },
+  {
+    "id": "RHBA-2019:3649",
+    "description": "For detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.",
+    "public_date": "2019-11-05T18:10:54Z",
+    "synopsis": "adcli bug fix and enhancement update",
+    "advisory_type": 2,
+    "advisory_type_name": "bugfix",
+    "cve_count": 0,
+    "reboot_required": false,
+    "release_versions": [
+      "8",
+      "8.5",
+      "8.2",
+      "8.3",
+      "8.1",
+      "8.4"
+    ]
+  },
+...
+...
+...
+...
+...
+...
+...
+..
+.

@@ -1,0 +1,49 @@
+-------------------------------------------------------
+EXAMPLE API CALL FOR A SPECIFIC SYSTEM
+-------------------------------------------------------
+
+                      MAIN API ENDPOINT             ID OF SPECIFIC ERRATA FROM API#2
+| ----------------------------------------------- | ------------- |
+
+https://console.redhat.com/api/patch/v1/advisories/RHBA-2019:3649
+
+-------------------------------------------------------
+EXAMPLE RETURN FOR A SPECIFIC SYSTEM 
+-------------------------------------------------------
+
+### Returns all of the info about an errata, including affected packages, CVEs if any, and whether the system should be rebooted. This gives parity with the Satellite report currently being ingested. This could be parsed to display as a table, so when an Errata is clicked on the table view of a specific host, this API call runs, and displays the view of errata info, only if the user wants to drill down and see more data. Run live and on-the-fly.
+
+{
+  "data": {
+    "attributes": {
+      "description": "For detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.",
+      "modified_date": "2019-11-05T18:10:51Z",
+      "public_date": "2019-11-05T18:10:54Z",
+      "topic": "An update for adcli is now available for Red Hat Enterprise Linux 8.",
+      "synopsis": "adcli bug fix and enhancement update",
+      "solution": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+      "advisory_type_name": "bugfix",
+      "severity": null,
+      "fixes": null,
+      "cves": [],
+      "packages": {
+        "adcli": "0.8.2-3.el8.aarch64",
+        "adcli-debuginfo": "0.8.2-3.el8.aarch64",
+        "adcli-debugsource": "0.8.2-3.el8.aarch64",
+        "adcli-doc": "0.8.2-3.el8.noarch"
+      },
+      "references": [],
+      "reboot_required": false,
+      "release_versions": [
+        "8.1",
+        "8",
+        "8.4",
+        "8.2",
+        "8.3",
+        "8.5"
+      ]
+    },
+    "id": "RHBA-2019:3649",
+    "type": "advisory"
+  }
+}

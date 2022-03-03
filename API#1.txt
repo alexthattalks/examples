@@ -1,0 +1,107 @@
+-------------------------------------------------------
+EXAMPLE API CALL FOR ALL SYSTEMS (RUN 1x PER DAY)
+-------------------------------------------------------
+
+                      MAIN API ENDPOINT
+| --------------------------------------------------- | 
+
+https://console.redhat.com/api/patch/v1/export/systems
+
+
+
+
+-------------------------------------------------------
+EXAMPLE API CALL FOR A SPECIFIC SYSTEM
+-------------------------------------------------------
+
+                      MAIN API ENDPOINT                   FILTER FOR 1 HOST
+| --------------------------------------------------- | -------------------- |
+
+https://console.redhat.com/api/patch/v1/export/systems?search=git.asm.network
+
+
+
+
+-------------------------------------------------------
+EXAMPLE RETURN FOR A SPECIFIC SYSTEM 
+-------------------------------------------------------
+(ALL SYSTEMS SHOWS THE SAME DATA, BUT FOR EVERY HOST IN ONE CALL)
+
+[
+  {
+    "id": "25a54baf-2209-4cc7-a74f-ab6059ded281",           <================ This can be used to execute API#2, to fetch info on the specific host's errata
+    "display_name": "git.asm.network",
+    "last_evaluation": "2022-03-02T06:33:39.562906Z",
+    "last_upload": "2022-03-02T06:33:37.777889Z",
+    "rhsa_count": 69,
+    "rhba_count": 136,
+    "rhea_count": 7,
+    "other_count": 0,
+    "stale": false,
+    "third_party": true,
+    "insights_id": "d0a4d354-3e24-4e30-9bad-d16f7470cecb",
+    "packages_installed": 675,
+    "packages_updatable": 314,          <================ If this number is greater than zero (0), the system is not compliant - use for updates field in Dashboard
+    "os_name": "RHEL",
+    "os_major": "8",
+    "os_minor": "4",
+    "os": "RHEL 8.4",
+    "rhsm": "8",
+    "stale_timestamp": "2022-03-03T21:19:06.827Z",
+    "stale_warning_timestamp": "2022-03-10T21:19:06.827Z",
+    "culled_timestamp": "2022-03-17T21:19:06.827Z",
+    "created": "2021-02-24T17:07:17.768906Z",
+    "tags": [
+      {
+        "key": "location",
+        "namespace": "satellite",
+        "value": "Macbeth"
+      },
+      {
+        "key": "hostgroup",
+        "namespace": "satellite",
+        "value": "hostgroup"
+      },
+      {
+        "key": "content_view",
+        "namespace": "satellite",
+        "value": "comp_rhel8"
+      },
+      {
+        "key": "organization",
+        "namespace": "satellite",
+        "value": "ASMN"
+      },
+      {
+        "key": "activation_key",
+        "namespace": "satellite",
+        "value": "vdc"
+      },
+      {
+        "key": "activation_key",
+        "namespace": "satellite",
+        "value": "prod_rhel"
+      },
+      {
+        "key": "host collection",
+        "namespace": "satellite",
+        "value": "asm-network"
+      },
+      {
+        "key": "organization_id",
+        "namespace": "satellite",
+        "value": "1"
+      },
+      {
+        "key": "lifecycle_environment",
+        "namespace": "satellite",
+        "value": "prod"
+      },
+      {
+        "key": "satellite_instance_id",
+        "namespace": "satellite",
+        "value": "b8985840-32de-4921-ba57-7d65f53512a6"
+      }
+    ]
+  }
+]
