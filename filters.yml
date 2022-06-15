@@ -1,3 +1,28 @@
+- name: Delete Date Filter
+  # start off fresh by deleting existing filters
+  redhat.satellite.content_view_filter:
+    name: "INCLUDE TO DATE"
+    organization: "{{ org_name }}"
+    content_view: "{{ primary_content_view }}"
+    filter_type: "erratum"
+    filter_state: "absent"
+    
+- name: Delete RPM Filter
+  redhat.satellite.content_view_filter:
+    name: "INCLUDE TO DATE"
+    organization: "{{ org_name }}"
+    content_view: "{{ primary_content_view }}"
+    filter_type: "erratum"
+    filter_state: "absent"
+    
+- name: Delete Errata Filter
+  redhat.satellite.content_view_filter:
+    name: "RPM WITHOUT ERRATA"
+    organization: "{{ org_name }}"
+    content_view: "{{ primary_content_view }}"
+    filter_type: "rpm"
+    filter_state: "absent"
+
 - name: Update Include Erratum To Date Filter
   # Create/update filter locking erratum content to a specific date
   redhat.satellite.content_view_filter:
@@ -9,6 +34,7 @@
     end_date: "{{ end_date }}"
     date_type: "updated"
     inclusion: "yes"
+  when: end_date|length != 0
     
 - name: Update Include Packages without Errata
   # Create/update filter including packages without any errata (original packages)
@@ -20,6 +46,7 @@
     original_packages: "yes"
     rule_state: "absent"
     inclusion: "yes"
+  when: end_date|length != 0
     
 - name: Update Include Specific Erratum
   # Create filter adding in specific errata AFTER the locked date above
@@ -31,4 +58,4 @@
     # Errata ID from survey
     errata_id: "{{ errata_id }}"
     inclusion: "yes"
-  when: errata_id|length != 0
+  when: end_date|length != 0
