@@ -18,6 +18,11 @@
     - name: Loop through and Create/Update Filters
       include_tasks: filters.yml
       # Splits input list of CVs to loop through
+      loop: "{{ primary_content_view }}"
+      loop_control:
+        # Sets variable for use inside the loop, in filters.yml
+        loop_var: content_view
+      # Only runs if Content Views are defined in the survey
       when: primary_content_view|length != 0
 ### UPDATE 1 #######################################################
 
