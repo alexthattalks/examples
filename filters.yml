@@ -20,9 +20,14 @@
     name: "SPECIFIC ERRATA"
     organization: "{{ org_name }}"
     content_view: "{{ primary_content_view }}"
-    errata_id: "{{ errata_id }}"
     filter_type: "erratum"
     filter_state: "absent"
+
+- name: Delete Module Filter
+  shell:
+    cmd: hammer content-view filter delete --organization "{{ org_name }}" --content-view "{{ primary_content_view }}" --name "MODULES WITHOUT ERRATA"
+  when: end_date|length != 0 and "8" in primary_content_view
+  ignore_errors: yes
 
 - name: Update Include Erratum To Date Filter
   # Create/update filter locking erratum content to a specific date
@@ -31,7 +36,6 @@
     organization: "{{ org_name }}"
     content_view: "{{ primary_content_view }}"
     filter_type: "erratum"
-    # End date from survey
     end_date: "{{ end_date }}"
     date_type: "updated"
     inclusion: "yes"
@@ -44,10 +48,16 @@
     organization: "{{ org_name }}"
     content_view: "{{ primary_content_view }}"
     filter_type: "rpm"
+    rule_state: absent
     original_packages: "yes"
-    rule_state: "absent"
     inclusion: "yes"
   when: end_date|length != 0
+
+- name: Update Include Modules without Errata
+  # Create/update filter including modules without any errata (original packages)
+  shell:
+    cmd: hammer content-view filter create --organization "{{ org_name }}" --content-view "{{ primary_content_view }}" --name "MODULES WITHOUT ERRATA" --type "modulemd" --original-module-streams "true" --inclusion "true"
+  when: end_date|length != 0 and "8" in primary_content_view
     
 - name: Update Include Specific Erratum
   # Create filter adding in specific errata AFTER the locked date above
