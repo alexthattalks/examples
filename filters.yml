@@ -25,7 +25,7 @@
 
 - name: Delete Module Filter
   shell:
-    cmd: hammer content-view filter delete --organization "{{ org_name }}" --content-view "{{ primary_content_view }}" --name "MODULES WITHOUT ERRATA"
+    cmd: " hammer content-view filter delete --organization {{ org_name }} --content-view {{ primary_content_view }} --name 'MODULES WITHOUT ERRATA' "
   ignore_errors: yes
 
 - name: Update Include Erratum To Date Filter
