@@ -17,9 +17,9 @@ Tested in Ansible Tower 3.8.6 (AAP 1.2)
 
 - Secret file contains the URL, username, and password for the Ansible Tower, so the playbook can authenticate
 - Secret file is encrypted and added to SCM
-- Secret file password is added to Ansible Tower Vault
+- Secret file password is saved as a Vault credential
 - Secret file is referenced in playbook under vars_files
-- Secret file password is added to Job Template to access values at runtime 
+- Secret file credential is added to Job Template to access values at runtime 
 
 #### Secret file contents
 ```
