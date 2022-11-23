@@ -77,7 +77,7 @@ This code can be used to create a smart inventory to filter based on the groupâ€
     organization: Default
     name: "{{ aap_group }}"
     variables: <-- dictionary
-    state: present`
+    state: present
 ```
 This code can be used to add a team to a smart inventory to give them access to the hosts and the inventory
  ```
