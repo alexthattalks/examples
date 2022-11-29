@@ -24,7 +24,7 @@ Tested in Ansible Tower 3.8.6 (AAP 1.2)
 #### Secret file contents
 ```
 secret:
-  app_url: example.url
+  aap_url: example.url
   aap_user: admin
   aap_pass: password123
 ```
