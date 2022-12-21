@@ -28,8 +28,8 @@
         content: ""
         dest: /var/lib/awx/public/static/patching_compliance.tmp
         force: yes
-        group: nginx
-        owner: nginx
+        group: awx
+        owner: root
         mode: 0444
       run_once: true
       delegate_to: "{{ aap_host }}"
@@ -37,11 +37,12 @@
     - name: Ensure txt file exists for final result
       copy:
         content: ""
-        dest: /var/lib/awx/public/static/patching_compliance.txt
+        dest: /var/lib/awx/public/static/patching_compliance_latest.txt
         force: yes
-        group: nginx
-        owner: nginx
+        group: awx
+        owner: root
         mode: 0644
+        backup: true
       run_once: true
       delegate_to: "{{ aap_host }}"
 
@@ -55,11 +56,11 @@
       throttle: 1
 
     - name: Remove white lines from tmp file and publish to final result
-      shell: sed '/^$/d' /var/lib/awx/public/static/patching_compliance.tmp > /var/lib/awx/public/static/patching_compliance.txt
+      shell: sed '/^$/d' /var/lib/awx/public/static/patching_compliance.tmp > /var/lib/awx/public/static/patching_compliance_latest.txt
       run_once: true
       delegate_to: "{{ aap_host }}"
       
     - debug: 
-      msg: Visit the following URL for the report: "{{ aap_host }}"/static/patching_compliance.txt
+        msg: "Visit the following URL for the report: {{ aap_host }}/static/patching_compliance_latest.txt"
       run_once: true
       delegate_to: "{{ aap_host }}"
