@@ -1,0 +1,65 @@
+- name: Generate patching data for executive dashboard
+  hosts: all
+
+  vars:
+    aap_host: aap-controller.asm.network
+    
+  tasks:
+    - name: Find updateable packages for each host
+      ansible.builtin.yum:
+        list: updates
+      register: updates
+
+    - name: Find total packages for each host
+      ansible.builtin.yum:
+        list: installed
+      register: installed
+
+    - name: Create updateable_packages dictionary
+      ansible.builtin.set_fact:
+        updateable_packages: "{{ updates.results }}" 
+
+    - name: Create installed_packages dictionary
+      ansible.builtin.set_fact:
+        installed_packages: "{{ installed.results }}"
+
+    - name: Ensure tmp file exists for processing
+      copy:
+        content: ""
+        dest: /var/lib/awx/public/static/patching_compliance.tmp
+        force: yes
+        group: nginx
+        owner: nginx
+        mode: 0444
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+
+    - name: Ensure txt file exists for final result
+      copy:
+        content: ""
+        dest: /var/lib/awx/public/static/patching_compliance.txt
+        force: yes
+        group: nginx
+        owner: nginx
+        mode: 0644
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+
+    - name: Add each host block to tmp file
+      blockinfile:
+        marker: ""
+        insertafter: EOF
+        dest: /var/lib/awx/public/static/patching_compliance.tmp
+        block: "{{ lookup('template', 'host_template.j2') }}"
+      delegate_to: "{{ aap_host }}"
+      throttle: 1
+
+    - name: Remove white lines from tmp file and publish to final result
+      shell: sed '/^$/d' /var/lib/awx/public/static/patching_compliance.tmp > /var/lib/awx/public/static/patching_compliance.txt
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+      
+    - debug: 
+      msg: Visit the following URL for the report: "{{ aap_host }}"/static/patching_compliance.txt
+      run_once: true
+      delegate_to: "{{ aap_host }}"
