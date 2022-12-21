@@ -68,6 +68,6 @@
       delegate_to: "{{ aap_host }}"
       
     - debug: 
-        msg: "Visit the following URL for the report: {{ aap_host }}/static/patching_compliance_latest.txt"
+        msg: "Visit the following URL for the report: https://{{ aap_host }}/static/patching_compliance_latest.txt"
       run_once: true
       delegate_to: "{{ aap_host }}"
