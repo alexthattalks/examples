@@ -1,6 +1,1 @@
-{
-     hostname: {{ inventory_hostname }},
-     updateable_packages: {{ updateable_packages | length }},
-     total_packages: {{ installed_packages | length }},
-     compliance: {{ ((installed_packages | length - updateable_packages | length) / installed_packages | length) * 100 }}
-},
+{"hostname": "{{ inventory_hostname }}", "updateable_packages": "{{ updateable_packages | length }}", "total_packages": "{{ installed_packages | length }}", "compliance": "{{ ((installed_packages | length - updateable_packages | length) / installed_packages | length) * 100 }}"}
