@@ -24,18 +24,29 @@
         installed_packages: "{{ installed.results }}"
 
     - name: Ensure tmp file exists for processing
-      copy:
+      ansible.builtin.copy:
         content: ""
         dest: /var/lib/awx/public/static/patching_compliance.tmp
         force: yes
         group: awx
         owner: root
-        mode: 0444
+        mode: 0644
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+
+    - name: Ensure tmp2 file exists for processing
+      ansible.builtin.copy:
+        content: ""
+        dest: /var/lib/awx/public/static/patching_compliance.tmp2
+        force: yes
+        group: awx
+        owner: root
+        mode: 0644
       run_once: true
       delegate_to: "{{ aap_host }}"
 
     - name: Ensure txt file exists for final result
-      copy:
+      ansible.builtin.copy:
         content: ""
         dest: /var/lib/awx/public/static/patching_compliance_latest.txt
         force: yes
@@ -47,7 +58,7 @@
       delegate_to: "{{ aap_host }}"
 
     - name: Add each host block to tmp file
-      blockinfile:
+      ansible.builtin.blockinfile:
         marker: ""
         insertafter: EOF
         dest: /var/lib/awx/public/static/patching_compliance.tmp
@@ -56,18 +67,48 @@
       throttle: 1
 
     - name: Remove white lines from tmp file and publish to final result
-      shell: sed '/^$/d' /var/lib/awx/public/static/patching_compliance.tmp > /var/lib/awx/public/static/patching_compliance_latest.txt
+      ansible.builtin.shell: sed '/^$/d' /var/lib/awx/public/static/patching_compliance.tmp > /var/lib/awx/public/static/patching_compliance.tmp2
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+
+    - ansible.builtin.set_fact:
+        host_list: []
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+
+    - name: add to list
+      ansible.builtin.set_fact:
+        host_list: "{{ host_list + [item] }}"
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+      loop: "{{ lookup('ansible.builtin.url', 'https://'+'{{ aap_host }}'+'/static/patching_compliance.tmp2').splitlines() }}"
+
+    - ansible.builtin.debug:
+        msg: "{{ host_list }}"
+      run_once: true 
+      delegate_to: "{{ aap_host }}"
+
+    - ansible.builtin.copy:
+        content: "{{ host_list }}"
+        dest: /var/lib/awx/public/static/patching_compliance_latest.txt
       run_once: true
       delegate_to: "{{ aap_host }}"
       
     - name: Ensure tmp file is removed after processing
-      file:
+      ansible.builtin.file:
         dest: /var/lib/awx/public/static/patching_compliance.tmp
         state: absent
       run_once: true
       delegate_to: "{{ aap_host }}"
+
+    - name: Ensure tmp2 file is removed after processing
+      ansible.builtin.file:
+        dest: /var/lib/awx/public/static/patching_compliance.tmp2
+        state: absent
+      run_once: true
+      delegate_to: "{{ aap_host }}"
       
-    - debug: 
+    - ansible.builtin.debug: 
         msg: "Visit the following URL for the report: https://{{ aap_host }}/static/patching_compliance_latest.txt"
       run_once: true
       delegate_to: "{{ aap_host }}"
