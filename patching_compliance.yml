@@ -90,9 +90,19 @@
 
     - ansible.builtin.copy:
         content: "{{ host_list }}"
-        dest: /var/lib/awx/public/static/patching_compliance_latest.txt
+        dest: /var/lib/awx/public/static/patching_compliance.tmp
       run_once: true
       delegate_to: "{{ aap_host }}"
+
+    - name: Remove double quotes 
+      ansible.builtin.shell: sed 's/\"//g' /var/lib/awx/public/static/patching_compliance.tmp > /var/lib/awx/public/static/patching_compliance.tmp2
+      run_once: true
+      delegate_to: "{{ aap_host }}"
+
+    - name: Change single quotes to double quotes
+      ansible.builtin.shell: sed 's/'\''/"/g' /var/lib/awx/public/static/patching_compliance.tmp2 > /var/lib/awx/public/static/patching_compliance_latest.txt
+      run_once: true
+      delegate_to: "{{ aap_host }}"  
       
     - name: Ensure tmp file is removed after processing
       ansible.builtin.file:
