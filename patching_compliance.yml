@@ -81,7 +81,7 @@
         host_list: "{{ host_list + [item] }}"
       run_once: true
       delegate_to: "{{ aap_host }}"
-      loop: "{{ lookup('ansible.builtin.url', 'https://'+'{{ aap_host }}'+'/static/patching_compliance.tmp2').splitlines() }}"
+      loop: "{{ lookup('ansible.builtin.url', 'https://'+'{{ aap_host }}'+'/static/patching_compliance.tmp2', validate_certs=False).splitlines() }}"
 
     - ansible.builtin.debug:
         msg: "{{ host_list }}"
